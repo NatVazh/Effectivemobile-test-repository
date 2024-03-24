@@ -1,8 +1,0 @@
----
-- name: Deploy web application
-  hosts: web-servers
-  become: yes
-  roles:
-    - docker
-    - webapp
-    - nginx
