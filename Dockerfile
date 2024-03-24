@@ -15,6 +15,6 @@ RUN apk add --no-cache tzdata \
 # Установка необходимых PHP расширений
 RUN docker-php-ext-install pdo pdo_mysql
 
-# В контейнере открываем 9000 порт и запускаем сервер php, например, с помощью скрипта my_php.php
+# В контейнере открываем 9000 порт и запускаем сервер php, например, с помощью скрипта web_php.php
 EXPOSE 9000
 ENTRYPOINT ["php", "/usr/src/web_php/web_php.php"]
