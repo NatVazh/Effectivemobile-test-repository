@@ -13,7 +13,7 @@ services:
       - "9000:9000"      
     volumes:
       - ./www:/var/www/html
-      - ./php/php.ini:/usr/src/php/php.ini     
+      - ./web_php/php.ini:/usr/src/web_php/php.ini     
     depends_on:
       -  web_db      
     networks:
