@@ -11,8 +11,8 @@ services:
     ports:
       - "9000:9000"      
     volumes:
-      - ./www_data:/var/www/html
-      - ./php/php.ini:/usr/src/etc/php/php.ini     
+      - ./www:/var/www/html
+      - ./php/php.ini:/usr/src/php/php.ini     
     depends_on:
       -  web_db      
     app-network:
