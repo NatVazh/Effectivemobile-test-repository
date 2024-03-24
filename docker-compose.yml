@@ -15,8 +15,8 @@ services:
       - ./php/php.ini:/usr/src/php/php.ini     
     depends_on:
       -  web_db      
-    app-network:
-      driver: bridge
+    networks:
+      - app-network
 
   # Nginx Service
   web_nginx:
@@ -32,11 +32,9 @@ services:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/ssl:/etc/nginx/ssl
     depends_on:
-      - web_php
-    links:
-      - web_php      
-    app-network:
-      driver: bridge
+      - web_php  
+    networks:
+      - app-network
 
   # MySQL Service
   web_db:
@@ -52,12 +50,10 @@ services:
       - "3306:3306"
     volumes:
       - ./mysql:/var/lib/mysql      
-    app-network:
-      driver: bridge
+    networks:
+      - app-network
 
 # Docker Networks
 networks:
   app-network:
     driver: bridge
-    environment:
-      TZ: "Europe/Moscow"
