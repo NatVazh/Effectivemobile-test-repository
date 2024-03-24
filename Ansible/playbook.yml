@@ -1,0 +1,8 @@
+---
+- name: Deploy app_php
+  hosts: web-servers
+  become: yes
+  roles:
+    - docker
+    - app_php
+    - nginx
