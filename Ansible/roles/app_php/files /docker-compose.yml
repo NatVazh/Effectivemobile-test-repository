@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  # PHP Service
+  app_php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app_php
+    volumes:
+      - ./www:/var/www/html
+    networks:
+      - app-network
+
+  # Nginx Service
+  app_nginx:
+    image: nginx:latest
+    container_name: app_nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ./www:/var/www/html
+    depends_on:
+      - app_php
+    networks:
+      - app-network
+
+  # MySQL Service
+  app_db:
+    image: mysql:8.0
+    container_name: app_db
+    environment:
+      MYSQL_DATABASE: mydb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - app-network
+
+# Volumes for data persistence
+volumes:
+  db_data:
+
+# Networks
+networks:
+  app-network:
+    driver: bridge
