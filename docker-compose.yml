@@ -1,60 +1,52 @@
 version: '3.8'
+
 services:
   # PHP Service
-  web_php:
+  app_php:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: web_php
-    restart: always
-    environment:
-      SERVICE_NAME: web_php
-    ports:
-      - "9000:9000"      
+    container_name: app_php
     volumes:
       - ./www:/var/www/html
-      - ./web_php/php.ini:/usr/src/web_php/php.ini     
-    depends_on:
-      -  web_db      
     networks:
       - app-network
 
   # Nginx Service
-  web_nginx:
-    image: nginx
-    container_name: web_nginx
-    restart: always
-    environment:
-      TZ: "Europe/Moscow"
+  app_nginx:
+    image: nginx:latest
+    container_name: app_nginx
     ports:
       - "80:80"
-      - "443:443"
     volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
-      - ./nginx/ssl:/etc/nginx/ssl
+      - ./nginx:/etc/nginx/conf.d
+      - ./www:/var/www/html
     depends_on:
-      - web_php  
+      - app_php
     networks:
       - app-network
 
   # MySQL Service
-  web_db:
-    image: mysql:8
-    container_name: web_db
-    restart: always
+  app_db:
+    image: mysql:8.0
+    container_name: app_db
     environment:
-      SERVICE_NAME: web_db
-      MYSQL_DATABASE: web_db
-      MYSQL_ROOT_PASSWORD: "MyStr0ngP@ssw0rd"
-      TZ: "Europe/Moscow"
+      MYSQL_DATABASE: mydb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: rootpassword
     ports:
       - "3306:3306"
     volumes:
-      - ./mysql:/var/lib/mysql      
+      - db_data:/var/lib/mysql
     networks:
       - app-network
 
-# Docker Networks
+# Volumes for data persistence
+volumes:
+  db_data:
+
+# Networks
 networks:
   app-network:
     driver: bridge
