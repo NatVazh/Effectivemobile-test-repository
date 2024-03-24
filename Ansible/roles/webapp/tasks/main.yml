@@ -1,0 +1,5 @@
+---
+- name: Copy docker-compose.yml file
+  copy:
+    src: files/docker-compose.yml
+    dest: /home/user/docker-compose.yml
