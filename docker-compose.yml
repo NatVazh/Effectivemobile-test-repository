@@ -1,0 +1,51 @@
+#На сервер с установленной ОС Ubuntu
+
+version: 'v-0.0.1'
+
+services:
+
+  # PHP Service
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: my-php-app
+    restart: always
+    environment:
+      SERVICE_NAME: my-php-app
+    working_dir: /var/www
+    app-network:
+      driver: bridge
+
+  # Nginx Service
+  webserver:
+    image: nginx:alpine
+    container_name: my-nginx-webserver
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    app-network:
+      driver: bridge
+
+  # MySQL Service
+  db:
+    image: mysql:8
+    volumes:
+      - ./mysql:/var/lib/mysql
+    container_name: my-db
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      SERVICE_NAME: mysql
+      MYSQL_ROOT_PASSWORD: 'MyStr0ngP@ssw0rd'
+  app-network:
+    driver: bridge
+
+# Docker Networks
+networks:
+  app-network:
+    driver: bridge
