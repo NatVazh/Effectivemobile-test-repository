@@ -2,7 +2,7 @@
 Докеризированное веб приложение (nginx, php, mysql) с использованием docker-compose.yml для разворачивания на удалённом сервере.
 
 Структура каталогов Ansible проекта докеризированного веб приложения:
-
+```
 Ansible
 ├── ansible.cfg
 ├── inventory
@@ -24,3 +24,4 @@ Ansible
         |   └── Dockerfile
         └── tasks
             └── main.yml
+```
