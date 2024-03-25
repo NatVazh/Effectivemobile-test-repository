@@ -20,12 +20,12 @@ tasks:
   args:
     chdir: /
 
-- name: Generate Nginx configuration file from template
-  template:
-    src: 
-    dest: /etc/nginx/conf.d/nginx_php.conf
-  notify:
-    - restart nginx
+#- name: Generate Nginx configuration file from template
+ # template:
+  #  src: 
+   # dest: /etc/nginx/conf.d/nginx_php.conf
+  #notify:
+   # - restart nginx
 
 - name: restart nginx
   service:
