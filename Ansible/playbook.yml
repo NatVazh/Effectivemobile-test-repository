@@ -4,10 +4,6 @@
   any_errors_fatal: true
   become: yes
 ---
-# vars
-vars:
-  remote_host: 
----
 # tasks
 
 tasks:
