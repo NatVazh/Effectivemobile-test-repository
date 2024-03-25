@@ -22,7 +22,7 @@ tasks:
 
 - name: Generate Nginx configuration file from template
   template:
-    src: 
+    src: templates/nginx-php.conf
     dest: /etc/nginx/conf.d/nginx_php.conf
   notify:
     - restart nginx
