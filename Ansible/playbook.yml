@@ -19,10 +19,10 @@ tasks:
   ansible.builtin.shell: docker-compose up -d
   args:
     chdir: /
-
+    
 - name: Generate Nginx configuration file from template
   template:
-    src: templates/nginx-php.conf
+    src: templates/nginx/nginx-php.conf
     dest: /etc/nginx/conf.d/nginx_php.conf
   notify:
     - restart nginx
