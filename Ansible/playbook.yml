@@ -5,39 +5,20 @@
   become: yes
 ---
 # tasks
-
 tasks:
-
 - name: Install Docker
   apt:
     name: docker.io
-    state: latest
+    state: latest  
 - name: Install Docker Compose
   apt:
     name: docker-compose
     state: latest
-    
-- name: Copy new version file of service to Hosts
-  ansible.builtin.copy:
-    src: tmp/
-    dest: '/ets/{{ service_name }}'
-
-- name: Rewrite working file with new version file of service
-  ansible.builtin.copy:
-    src: '/opt/quasar/mis/{{ service_name }}/{{ file_name }}'
-    dest: '/opt/quasar/mis/{{ service_name }}/{{ service_name }}.jar'
-    remote_src: yes
-
+  
 - name: Restart service
   ansible.builtin.service:
     name: "{{ service_name }}"
       
-- name: nginx systemd
-  systemd:
-    name: nginx
-    enabled: yes
-    state: started
----
 - name: Copy docker-compose.yml file
   copy:
     src: files/docker-compose.yml
@@ -54,4 +35,9 @@ tasks:
   service:
     name: nginx
     state: restarted
- 
+    
+ - name: nginx systemd
+  systemd:
+    name: nginx
+    enabled: yes
+    state: started
