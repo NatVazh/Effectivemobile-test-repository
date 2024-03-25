@@ -14,11 +14,16 @@ tasks:
       - docker-compose
     state: present
 
+- name: Copy docker-compose.yml file
+  copy:
+    src: /docker-compose.yml
+    dest: /home/user/docker-compose.yml
+    
 - name: Start containers using docker-compose
   become: true
   shell: docker-compose up -d
   args:
-    chdir: /
+    chdir: /home/user/
 
 #- name: Generate Nginx configuration file from template
  # template:
