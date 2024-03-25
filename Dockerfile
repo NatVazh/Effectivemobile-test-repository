@@ -20,4 +20,4 @@ COPY . /var/www/html
 # Открываем порт 9000
 EXPOSE 9000
 
-ENTRYPOINT ["php"]
+ENTRYPOINT ["php-fpm"]
